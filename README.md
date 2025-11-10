@@ -117,12 +117,15 @@ docker compose exec graze-post-remover npm run backfill new-label 2000
 
 ## Authentication
 
-The app uses your Bluesky credentials to authenticate with Graze:
+The app uses **automatic authentication** with your Bluesky credentials:
 
-1. **Login to Graze** using your Bluesky handle and app password
-2. **Extract session cookie** from the login response
+1. **Primary method**: Login to Graze using your `BSKY_HANDLE` and `BSKY_APP_PASSWORD`
+2. **Extract session cookie** from the login response automatically
 3. **Use cookie for API calls** to remove posts
 4. **Auto-refresh** when session expires
+5. **Fallback option**: Manual `GRAZE_SESSION_COOKIE` (only used if Bluesky auth fails)
+
+**Recommended setup**: Just provide your Bluesky credentials and the app handles everything automatically!
 
 ## Monitoring
 
