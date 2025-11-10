@@ -5,13 +5,22 @@ function parseRemovalLabels(labelsString) {
   if (!labelsString) return {};
   
   const labels = {};
-  labelsString.split(',').forEach(item => {
-    const [label, ...feedIds] = item.trim().split(':');
-    if (label && feedIds.length > 0) {
-      const feeds = feedIds.join(':').split(',').map(f => f.trim());
+  // Split by label pairs first (comma followed by word and colon)
+  const labelPairs = labelsString.split(/,(?=\w+:)/);
+  
+  labelPairs.forEach(pair => {
+    const colonIndex = pair.indexOf(':');
+    if (colonIndex === -1) return;
+    
+    const label = pair.substring(0, colonIndex).trim();
+    const feedsString = pair.substring(colonIndex + 1).trim();
+    
+    if (label && feedsString) {
+      const feeds = feedsString.split(',').map(f => f.trim()).filter(f => f);
       labels[label] = feeds;
     }
   });
+  
   return labels;
 }
 
