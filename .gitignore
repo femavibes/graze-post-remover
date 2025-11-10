@@ -5,6 +5,7 @@
 # Data files
 cursor.txt
 graze_session.json
+github-commit-key.md
 
 # Node modules
 node_modules/
