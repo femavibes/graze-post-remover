@@ -1,0 +1,9 @@
+services:
+  graze-post-remover:
+    build: .
+    env_file:
+      - .env.local
+      - .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

@@ -1,0 +1,16 @@
+{
+  "name": "graze-post-remover",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "backfill": "node src/backfill.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "@atcute/cbor": "^2.1.1",
+    "dotenv": "^16.3.1",
+    "chokidar": "^3.5.3"
+  }
+}
