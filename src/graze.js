@@ -10,16 +10,7 @@ export async function removePostFromGraze(postUri, feedIds) {
 }
 
 async function removeFromSingleFeed(postUri, feedId, url, retryCount = 0) {
-  let sessionString;
-  try {
-    sessionString = await getGrazeSessionString();
-  } catch (error) {
-    console.log('Auth failed, using direct session cookie fallback');
-    sessionString = config.GRAZE_SESSION_COOKIE;
-    if (!sessionString) {
-      throw new Error('No session available');
-    }
-  }
+  const sessionString = await getGrazeSessionString();
   
   const payload = feedId === 'all' 
     ? { at_uri: postUri }
