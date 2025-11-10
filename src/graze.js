@@ -2,11 +2,7 @@ import { config } from './config.js';
 import { getGrazeSessionString, clearSessionString } from './auth.js';
 
 export async function removePostFromGraze(postUri, feedIds) {
-  const url = config.GRAZE_REMOVE_ALL_URL;
-  
-  if (!url) {
-    throw new Error('Missing GRAZE_REMOVE_ALL_URL');
-  }
+  const url = 'https://api.graze.social/app/hide_post';
   
   for (const feedId of feedIds) {
     await removeFromSingleFeed(postUri, feedId, url);
