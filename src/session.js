@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
 
-const SESSION_FILE = 'data/graze_session.json';
+const SESSION_FILE = 'graze_session.json';
 
 export function saveSession(sessionCookie) {
   const sessionData = {
