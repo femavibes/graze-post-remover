@@ -5,5 +5,5 @@ services:
       - .env.local
       - .env
     volumes:
-      - ./data:/app/data
+      - .:/app/data
     restart: unless-stopped

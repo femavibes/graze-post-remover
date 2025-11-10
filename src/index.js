@@ -9,10 +9,9 @@ let cursor = 0;
 
 // Load cursor from file
 try {
-  const cursorPath = `data/${config.CURSOR_FILEPATH}`;
-  const cursorData = readFileSync(cursorPath, 'utf8').trim();
+  const cursorData = readFileSync(config.CURSOR_FILEPATH, 'utf8').trim();
   cursor = parseInt(cursorData) || 0;
-  console.log(`Loaded cursor: ${cursor} from ${cursorPath}`);
+  console.log(`Loaded cursor: ${cursor}`);
 } catch (e) {
   console.log('Starting with cursor 0, error:', e.message);
 }
@@ -21,7 +20,7 @@ try {
 
 // Save cursor periodically
 setInterval(() => {
-  writeFileSync(`data/${config.CURSOR_FILEPATH}`, cursor.toString());
+  writeFileSync(config.CURSOR_FILEPATH, cursor.toString());
 }, 1000);
 
 // Watch .env file for changes and reload config

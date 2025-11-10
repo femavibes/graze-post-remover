@@ -2,8 +2,9 @@
 .env.local
 .env.production
 
-# Data directory
-data/
+# Data files
+cursor.txt
+graze_session.json
 
 # Node modules
 node_modules/

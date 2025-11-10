@@ -22,7 +22,7 @@ if (backfillAmount === 'all') {
 } else if (backfillAmount) {
   // Get current cursor and subtract backfill amount
   try {
-    const currentCursor = parseInt(readFileSync('data/cursor.txt', 'utf8').trim()) || 0;
+    const currentCursor = parseInt(readFileSync('cursor.txt', 'utf8').trim()) || 0;
     startCursor = Math.max(0, currentCursor - parseInt(backfillAmount));
   } catch (e) {
     startCursor = 0;
@@ -30,7 +30,7 @@ if (backfillAmount === 'all') {
 } else {
   // Default: backfill last 1000 events
   try {
-    const currentCursor = parseInt(readFileSync('data/cursor.txt', 'utf8').trim()) || 0;
+    const currentCursor = parseInt(readFileSync('cursor.txt', 'utf8').trim()) || 0;
     startCursor = Math.max(0, currentCursor - 1000);
   } catch (e) {
     startCursor = 0;
