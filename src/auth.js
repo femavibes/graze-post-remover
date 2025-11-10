@@ -2,10 +2,15 @@ import { config } from './config.js';
 import { loadSession, saveSession, clearSession } from './session.js';
 
 let sessionString = null;
+let authPromise = null;
 
 export async function getGrazeSessionString() {
   if (sessionString) {
     return sessionString;
+  }
+  
+  if (authPromise) {
+    return authPromise;
   }
   
   // Try to load from persistent storage
@@ -14,6 +19,14 @@ export async function getGrazeSessionString() {
     console.log('Using cached Graze session');
     return sessionString;
   }
+  
+  authPromise = authenticateWithGraze();
+  sessionString = await authPromise;
+  authPromise = null;
+  return sessionString;
+}
+
+async function authenticateWithGraze() {
   
   if (!config.BSKY_HANDLE || !config.BSKY_APP_PASSWORD) {
     throw new Error('Missing BSKY_HANDLE or BSKY_APP_PASSWORD');
@@ -53,5 +66,6 @@ export async function getGrazeSessionString() {
 
 export function clearSessionString() {
   sessionString = null;
+  authPromise = null;
   clearSession();
 }
