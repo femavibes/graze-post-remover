@@ -7,7 +7,7 @@ Monitors Bluesky/Ozone labels in real-time and automatically removes labeled pos
 1. **Connects to Ozone labeler** via WebSocket to receive label events in real-time
 2. **Filters for post labels** - Only processes labels applied to posts (AT-URIs), ignores account labels
 3. **Matches configured labels** - Checks if the label matches your removal configuration
-4. **Removes from Graze feeds** - Makes API calls to remove posts from specified feed IDs
+4. **Removes from Graze feeds** - Uses Graze's web interface endpoints to remove posts from specified feed IDs
 5. **Maintains cursor position** - Saves progress to avoid reprocessing old labels on restart
 
 ## Features
@@ -121,7 +121,7 @@ The app uses **automatic authentication** with your Bluesky credentials:
 
 1. **Primary method**: Login to Graze using your `BSKY_HANDLE` and `BSKY_APP_PASSWORD`
 2. **Extract session cookie** from the login response automatically
-3. **Use cookie for API calls** to remove posts
+3. **Use cookie for web requests** to remove posts via Graze's interface
 4. **Auto-refresh** when session expires
 5. **Fallback option**: Manual `GRAZE_SESSION_COOKIE` (only used if Bluesky auth fails)
 
