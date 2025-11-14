@@ -31,5 +31,8 @@ export const config = {
   GRAZE_REMOVAL_LABELS: parseRemovalLabels(process.env.GRAZE_REMOVAL_LABELS),
   BSKY_HANDLE: process.env.BSKY_HANDLE,
   BSKY_APP_PASSWORD: process.env.BSKY_APP_PASSWORD,
-  GRAZE_SESSION_COOKIE: process.env.GRAZE_SESSION_COOKIE
+  GRAZE_SESSION_COOKIE: process.env.GRAZE_SESSION_COOKIE,
+  OZONE_URL: process.env.OZONE_URL,
+  LABELER_DID: process.env.LABELER_DID,
+  OZONE_POLLING_SECONDS: parseInt(process.env.OZONE_POLLING_SECONDS) || 30
 };

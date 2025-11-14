@@ -1,23 +1,32 @@
 # Graze Post Remover
 
-Monitors Bluesky/Ozone labels in real-time and automatically removes labeled posts from Graze.social feeds.
+Monitors Bluesky/Ozone labels and moderation events in real-time and automatically removes posts from Graze.social feeds.
 
 ## How It Works
 
+### Label-Based Removal
 1. **Connects to Ozone labeler** via WebSocket to receive label events in real-time
 2. **Filters for post labels** - Only processes labels applied to posts (AT-URIs), ignores account labels
 3. **Matches configured labels** - Checks if the label matches your removal configuration
 4. **Removes from Graze feeds** - Uses Graze's web interface endpoints to remove posts from specified feed IDs
-5. **Maintains cursor position** - Saves progress to avoid reprocessing old labels on restart
+
+### Report-Based Removal (NEW)
+1. **Polls Ozone moderation events** - Monitors for special removal requests from whitelisted moderators
+2. **Detects removal requests** - Looks for `AUTO_REMOVE_REQUEST` comments in acknowledge events
+3. **Removes from all feeds** - Automatically removes posts without visible labeling
+
+### Persistence
+- **Maintains cursor positions** - Saves progress for both label and Ozone event streams
 
 ## Features
 
-- ✅ **Real-time monitoring** - Processes labels as they happen
+- ✅ **Real-time monitoring** - Processes labels and moderation events as they happen
+- ✅ **Multiple removal methods** - Label-based (configurable feeds) and report-based (all feeds)
 - ✅ **Multiple feed support** - Remove from specific feeds or all feeds
 - ✅ **Hot config reload** - Edit `.env` without restarting
 - ✅ **Backfill commands** - Process historical labels for new configurations
 - ✅ **Automatic authentication** - Uses Bluesky credentials for stable auth
-- ✅ **Cursor persistence** - Resumes from last processed label
+- ✅ **Dual cursor persistence** - Resumes from last processed label and Ozone event
 
 ## Setup
 
@@ -30,15 +39,20 @@ cp .env.example .env
 Edit `.env` with your settings:
 
 ```bash
-# Your labeler's WebSocket URL
+# Your labeler's WebSocket URL (for label-based removal)
 LABELER_SOCKET_URL=wss://your-labeler.com/xrpc/com.atproto.label.subscribeLabels?cursor=0
 
-# Label to feed mapping
+# Label to feed mapping (for label-based removal)
 GRAZE_REMOVAL_LABELS=spam-remove:all,carbrain:3654,nsfw-remove:1234,5678
 
 # Your Bluesky credentials
 BSKY_HANDLE=your-handle.bsky.social
 BSKY_APP_PASSWORD=your-app-password
+
+# Ozone configuration (for report-based removal)
+OZONE_URL=https://your-labeler.com
+LABELER_DID=did:plc:your-labeler-did
+OZONE_POLLING_SECONDS=30
 ```
 
 ### 2. Run with Docker
