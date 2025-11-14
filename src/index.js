@@ -169,7 +169,7 @@ async function startOzoneMonitoring() {
 async function pollOzoneEvents(agent) {
   try {
     console.log('[OZONE] Polling events from cursor:', lastOzoneEventId);
-    const response = await agent.tools.ozone.moderation.queryEvents(
+    const response = await agent.api.tools.ozone.moderation.queryEvents(
       {},
       {
         headers: {
